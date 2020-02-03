@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opgave 7</title>
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+    <p>Click the button to display the hour of a given date-time.</p>
+
+    <button onclick="myFunction()">Try it</button>
+
+    <p id="time"></p>
+
+    <script>
+        function myFunction() {
+            var d = new Date();
+            var n = d.getHours();
+            document.querySelector("#time").innerHTML = n;
+            console.log(n);
+
+            if (n < 5) {
+                document.querySelector("#time").innerHTML = "Godnat";
+            } else if (n < 10) {
+                document.querySelector("#time").innerHTML = "Godmorgen";
+            } else if (n < 18) {
+                document.querySelector("#time").innerHTML = "Goddag";
+            } else {
+                document.querySelector("#time").innerHTML = "Godaften";
+            }
+        }
+
+    </script>
+</body>
+
+</html>
