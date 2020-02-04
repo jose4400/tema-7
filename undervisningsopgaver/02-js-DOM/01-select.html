@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div id="content">
+    <section id="content">
         <div>
             <a href="http://kea.dk">kea</a>
         </div>
@@ -18,7 +18,7 @@
         <div> <img src="http://mabe-kea.dk/E19/pics/frog.png" alt="billede af en frø">
 
         </div>
-    </div>
+    </section>
     <script>
         document.querySelector("#content");
         //console.log(document.querySelector("#content"));
@@ -27,7 +27,8 @@
         //console.log(document.querySelector("#content div + div + div"));
         //console.log(document.querySelector("#content div a"));
         // console.log(document.querySelector("#content div + div a"));
-        console.log(document.querySelector("img"));
+        // console.log(document.querySelector("img"));
+        console.log(document.querySelector("div:nth-child(2)"));
 
     </script>
 </body>

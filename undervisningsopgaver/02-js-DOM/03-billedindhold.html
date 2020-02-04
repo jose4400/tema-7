@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM opgave 3</title>
+    <style>
+        .firkant {
+            height: 100px;
+            width: 100px;
+            line-height: 100px;
+            text-align: center;
+            background: green;
+        }
+
+        .cirkel {
+            height: 100px;
+            width: 100px;
+            line-height: 100px;
+            border-radius: 50%;
+            text-align: center;
+            background: red;
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="firkant"></div>
+    <div class="cirkel"></div>
+
+    <script>
+        let firkantURL = `http://mabe-kea.dk/E19/pics/frog.png`;
+        let cirkelURL = `http://mabe-kea.dk/E19/pics/pig.png`;
+
+        document.querySelector(".firkant").innerHTML = `<img src= ${firkantURL} alt="grøn frø">`;
+        document.querySelector(".cirkel").innerHTML = `<img src= ${cirkelURL} alt="lyserød gris">`;
+
+    </script>
+</body>
+
+</html>
