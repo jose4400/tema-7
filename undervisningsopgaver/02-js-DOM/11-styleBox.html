@@ -17,6 +17,16 @@
             border: 1px solid silver;
             margin: 7vw;
             transition: all 1s;
+            background-color: darkred;
+
+        }
+
+        .gold {
+            background-color: red;
+        }
+
+        .green {
+            background-color: green;
         }
 
         /*********************/
@@ -32,7 +42,20 @@
     <div class="box" id="box4"></div>
 
     <script>
-        document.querySelector("#click")
+        const rødeKasser = document.querySelectorAll(".box");
+        console.log(rødeKasser);
+        rødeKasser.forEach(kasse => {
+            kasse.style.cursor = "pointer";
+            kasse.addEventListener("click", blivGreen);
+
+        });
+
+        function blivGreen() {
+            console.log(this);
+            this.classList.toggle("green");
+            kasse.removeEventListener("click", blivGreen);
+            kasse.addEventListener("click", blivGold);
+        }
 
     </script>
 </body>
