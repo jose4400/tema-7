@@ -58,6 +58,14 @@
             }
 
             function stop() {
+                firkant.removeEventListener("click", flyt);
+                firkant.style.transition = "1.5s";
+                firkant.style.backgroundColor = "red";
+
+                cirkel.style.transition = "1.5s";
+                cirkel.style.transform = "scale(0)";
+
+
 
             }
         }
