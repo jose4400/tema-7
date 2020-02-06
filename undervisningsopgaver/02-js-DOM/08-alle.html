@@ -17,8 +17,9 @@
 </head>
 
 <body>
+    <button>RESET</button>
     <h3>En</h3>
-    <p>Gochujang blue bottle iPhone quinoa, umami lumbersexual semiotics disrupt coloring book squid. Tilde banjo flannel PBR&B umami vape plaid occupy prism lumbersexual man braid. </p>
+    <p>Gochujang blue bottle iPhone quinoa, umami lumbersexual semiotics disrupt coloring book squid. Tilde banjo flannel PBR umami vape plaid occupy prism lumbersexual man braid. </p>
     <h3>Lille</h3>
     <p>Fam before they sold out edison bulb, la croix sartorial cray poke yuccie copper mug ugh. Kickstarter yr tumblr synth.</p>
     <h3>Bitte</h3>
@@ -30,7 +31,7 @@
 
 
     <script>
-        document.addEventListener("DOMContentLoad", start);
+        document.addEventListener("DOMContentLoaded", start)
 
         function start() {
             let alleP = document.querySelectorAll("p");
@@ -39,6 +40,7 @@
                     p.classList.add("typo");
                 })
             })
+
             document.querySelector("button").addEventListener("click", () => {
                 alleP.forEach(p => {
                     p.classList.remove("typo");
