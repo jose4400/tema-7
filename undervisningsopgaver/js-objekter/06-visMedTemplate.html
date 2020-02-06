@@ -7,14 +7,27 @@
     <title></title>
     <style>
         article {
-
-            width: 300px;
-            height: 300px;
             border: solid 1px black;
-            padding-left: 50px;
-            margin: 5px;
+            padding: 10px;
         }
 
+        article:nth-child(even) {
+            background-color: yellow;
+        }
+
+        article:first-child {
+
+            border: solid 2px red;
+        }
+
+        main {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            max-width: 1000px;
+            margin: 0 auto;
+            grid-gap: 10px;
+
+        }
     </style>
 </head>
 
@@ -28,6 +41,7 @@
             <p class="leve">Levested: </p>
         </article>
     </template>
+    <main> </main>
 
 
 
@@ -66,7 +80,7 @@
         console.log(dyr);
 
         function visDyr() {
-            const container = document.querySelector(".data-container");
+            const container = document.querySelector("main");
             const dyrTemplate = document.querySelector("template");
 
             dyr.forEach(enkelt => {
@@ -80,8 +94,5 @@
             })
 
         }
-
     </script>
-</body>
-
-</html>
+</body></html>
