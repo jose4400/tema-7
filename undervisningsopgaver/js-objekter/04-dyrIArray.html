@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style></style>
+</head>
+
+<body>
+    <article>
+        <p></p>
+        <img src="" alt="">
+    </article>
+
+
+    <script>
+// document.addEventListener("DOMContentLoaded", start)
+        let dyr = [{
+            "navn": "gris",
+            "type": "pattedyr",
+            "billede": "http://mabe-kea.dk/E19/pics/pig.png",
+            "levested": "svinefarmen"
+        }, {
+            "navn": "frø",
+            "type": "amfibie",
+            "billede": "http://mabe-kea.dk/E19/pics/frog.png",
+            "levested": "vandhullet"
+        }, {
+            "navn": "ræv",
+            "type": "pattedyr",
+            "billede": "http://mabe-kea.dk/E19/pics/fox.png",
+            "levested": "skoven"
+        }, {
+            "navn": "sild",
+            "type": "fisk",
+            "billede": "http://mabe-kea.dk/E19/pics/sild.jpg",
+            "levested": "havet"
+        }, {
+            "navn": "krokodille",
+            "type": "krybdyr",
+            "billede": "http://mabe-kea.dk/E19/pics/kroko.jpg",
+            "levested": "floden"
+        }]
+
+
+        console.log(dyr);
+
+        function start() {
+        const destination = document.querySelector("article");
+        const gris = `${dyr.navn} ${dyr.type} ${dyr.levested}`;
+
+        destination.querySelector("p").textContent = gris;
+        destination.querySelector("img").src = dyr.billede;
+
+        }
+
+    </script>
+</body>
+
+</html>
