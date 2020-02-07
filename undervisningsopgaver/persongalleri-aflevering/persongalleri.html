@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        img {
+            width: 100%;
+        }
+
+        article {
+            padding: 10px;
+            box-shadow: 1px 2px 5px;
+        }
+
+        article:nth-child(3n+1) {
+            background-color: #e6e6e6;
+            animation: pulse 3s infinite;
+            animation-delay: 0.2s;
+
+        }
+
+        article:nth-child(3n+2) {
+            background-color: #d4d4d4;
+            animation: pulse 3s infinite;
+            animation-delay: 0.4s;
+
+
+        }
+
+        article:nth-child(3n+3) {
+            background-color: #a8a8a8;
+            animation: pulse 3s ease-out infinite;
+            animation-delay: 0.6s;
+
+
+        }
+
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(0.97);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+
+        }
+
+        main {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            max-width: 1000px;
+            margin: 0 auto;
+            grid-gap: 10px;
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <section class="data-container"></section>
+    <template>
+        <article class="personer">
+            <h2></h2>
+            <img src="" alt="">
+            <p class="religion">Religion:</p>
+            <p class="hobby">Hobby: </p>
+            <p class="kaledyr">Kæledyr: </p>
+        </article>
+    </template>
+    <main> </main>
+
+
+
+
+    <script>
+        const endpoint = "https://spreadsheets.google.com/feeds/list/1XWWbfWszD7f4jHqp51V_oT3pkHuR-ceEUw4YtrvK7F0/od6/public/values?alt=json";
+        let personer = [];
+
+        document.addEventListener("DOMContentLoaded", start);
+
+        function start() {
+            loadData();
+        }
+
+
+
+        async function loadData() {
+            const response = await fetch(endpoint);
+            personer = await response.json();
+            // console.log(personer);
+            visPersoner();
+
+        }
+
+
+        function visPersoner() {
+            const container = document.querySelector("main");
+            const template = document.querySelector("template");
+
+            personer.feed.entry.forEach((person) => {
+                let klon = template.cloneNode("true").content;
+                klon.querySelector("h2").textContent = person.gsx$navn.$t + " " + person.gsx$efternavn.$t;
+                klon.querySelector("img").src = person.gsx$billede.$t;
+                klon.querySelector(".religion").textContent = person.gsx$religion.$t;
+                klon.querySelector(".hobby").textContent = person.gsx$hobby.$t;
+                klon.querySelector(".kaledyr").textContent = person.gsx$kaeledyr.$t;
+                container.appendChild(klon);
+
+            })
+
+        }
+
+    </script>
+</body>
+
+</html>
