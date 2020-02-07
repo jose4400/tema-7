@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        article {
+            border: solid 1px black;
+            padding: 10px;
+        }
+
+        article:nth-child(even) {
+            background-color: yellow;
+        }
+
+        article:first-child {
+
+            border: solid 2px red;
+        }
+
+        main {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            max-width: 1000px;
+            margin: 0 auto;
+            grid-gap: 10px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <section class="data-container"></section>
+    <template>
+        <article>
+            <h3></h3>
+            <img src="" alt="">
+            <p class="type">Type:</p>
+            <p class="leve">Levested: </p>
+        </article>
+    </template>
+    <main> </main>
+
+
+
+    <script>
+        let dyr = [];
+
+
+        document.addEventListener("DOMContentLoaded", start);
+
+        function start() {
+            hentData();
+        }
+
+        async function hentData() {
+            const response = await fetch("alleDyr.json");
+            dyr = await response.json();
+
+            visDyr();
+
+        }
+
+        console.log(dyr);
+
+        function visDyr() {
+            const container = document.querySelector("main");
+            const dyrTemplate = document.querySelector("template");
+
+            dyr.forEach(enkelt => {
+                let klon = dyrTemplate.cloneNode("true").content;
+                klon.querySelector("h3").textContent = enkelt.navn;
+                klon.querySelector("img").src = enkelt.billede;
+                klon.querySelector(".type").textContent = enkelt.type;
+                klon.querySelector(".leve").textContent = enkelt.levested;
+                container.appendChild(klon);
+
+            })
+
+        }
+    </script>
+</body></html>
