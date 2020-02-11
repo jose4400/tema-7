@@ -5,54 +5,71 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
+    <link href="https://fonts.googleapis.com/css?family=Bungee+Inline|Bungee+Shade|Montserrat&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+
     <style>
         img {
             width: 100%;
         }
 
+
+        body {
+            background-color: white;
+            background-image: url(baggrund2.png);
+        }
+
         article {
             padding: 10px;
-            box-shadow: 1px 2px 5px;
+            box-shadow: 1px 2px 5px black;
+            color: #d3c4a8;
+            background-color: #ededed;
+            /*            height: 300px;*/
         }
 
-        article:nth-child(3n+1) {
-            background-color: #e6e6e6;
-            animation: pulse 3s infinite;
-            animation-delay: 0.2s;
-
-        }
-
-        article:nth-child(3n+2) {
-            background-color: #d4d4d4;
-            animation: pulse 3s infinite;
-            animation-delay: 0.4s;
-
-
-        }
-
-        article:nth-child(3n+3) {
-            background-color: #a8a8a8;
-            animation: pulse 3s ease-out infinite;
-            animation-delay: 0.6s;
+        article h3 {
+            color: #000000;
+            text-align: center;
+            font-family: 'Bungee Inline', cursive;
+            font-weight: 500;
+            margin: 0;
+            padding: 5px;
+            /*            background-color: white;*/
+            border-bottom: solid 2px #cc3f3f;
 
 
         }
 
+        article:nth-child(even) {
+            background-color: #e6e5e5;
+        }
 
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
+        h1 {
+            color: #cc3f3f;
+            text-align: center;
+            font-size: 5rem;
+            font-family: 'Bungee Shade', cursive;
 
-            50% {
-                transform: scale(0.97);
-            }
-
-            100% {
-                transform: scale(1);
-            }
 
         }
+
+        h2 {
+            color: #3e3e3e;
+            text-align: center;
+            font-size: 2rem;
+            font-family: 'Bungee Inline', cursive;
+        }
+
+        p {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 200;
+            color: #212121;
+
+
+        }
+
+
 
         main {
             display: grid;
@@ -63,19 +80,55 @@
 
         }
 
+        nav {
+            padding-left: 470px;
+            padding-bottom: 10px;
+        }
+
+        button {
+            box-shadow: inset 0px 1px 0px 0px #f7c5c0;
+            background: linear-gradient(to bottom, #ed5449 5%, #e4685d 100%);
+            background-color: #ed5449;
+            border-radius: 3px;
+            border: 1px solid #d64537;
+            display: inline-block;
+            cursor: pointer;
+            color: #ffffff;
+            font-family: 'Roboto', sans-serif;
+            font-size: 10px;
+            font-weight: bold;
+            padding: 6px 24px;
+            text-decoration: none;
+        }
     </style>
 </head>
 
 <body>
 
+    <h1>BISTRO BABUSHKA</h1>
+    <h2><u>MENU</u></h2>
+    <nav class="menu">
+        <button class="filter" data-kategori="alle">
+            Alle
+        </button>
+        <button class="filter" data-kategori="for">
+            Forretter
+        </button>
+        <button class="filter" data-kategori="hoved">
+            Hovedretter
+        </button>
+        <button class="filter" data-kategori="des">Desserter</button>
+        <button class="filter" data-kategori="drik">Drikkevarer</button>
+    </nav>
     <section class="data-container"></section>
     <template>
-        <article class="personer">
-            <h2></h2>
+
+        <article class="madvarer">
+            <h3></h3>
             <img src="" alt="">
-            <p class="religion">Religion:</p>
-            <p class="hobby">Hobby: </p>
-            <p class="kaledyr">Kæledyr: </p>
+
+            <p id="kort"></p>
+            <p id="pris"></p>
         </article>
     </template>
     <main> </main>
@@ -84,44 +137,43 @@
 
 
     <script>
-        const endpoint = "https://spreadsheets.google.com/feeds/list/1XWWbfWszD7f4jHqp51V_oT3pkHuR-ceEUw4YtrvK7F0/od6/public/values?alt=json";
-        let personer = [];
+        const endpoint = "https://spreadsheets.google.com/feeds/list/17Dd7DvkPaFamNUdUKlrFgnH6POvBJXac7qyiS6zNRw0/od6/public/values?alt=json";
+        let madvarer = [];
 
         document.addEventListener("DOMContentLoaded", start);
 
+
+
         function start() {
-            loadData();
+            hentData();
         }
 
-
-
-        async function loadData() {
+        async function hentData() {
             const response = await fetch(endpoint);
-            personer = await response.json();
-            // console.log(personer);
-            visPersoner();
-
+            console.log(response);
+            madvarer = await response.json();
+            visMadvarer();
+            //            console.log(personer);
         }
 
 
-        function visPersoner() {
-            const container = document.querySelector("main");
-            const template = document.querySelector("template");
+        function visMadvarer() {
 
-            personer.feed.entry.forEach((person) => {
-                let klon = template.cloneNode("true").content;
-                klon.querySelector("h2").textContent = person.gsx$navn.$t + " " + person.gsx$efternavn.$t;
-                klon.querySelector("img").src = person.gsx$billede.$t;
-                klon.querySelector(".religion").textContent = person.gsx$religion.$t;
-                klon.querySelector(".hobby").textContent = person.gsx$hobby.$t;
-                klon.querySelector(".kaledyr").textContent = person.gsx$kaeledyr.$t;
+
+            const container = document.querySelector("main");
+            const dyrTemplate = document.querySelector("template");
+
+            madvarer.feed.entry.forEach(madvarer => {
+                let klon = dyrTemplate.cloneNode(true).content;
+                klon.querySelector("h3").textContent = madvarer.gsx$navn.$t;
+                klon.querySelector("img").src = "imgs/small/" + madvarer.gsx$billede.$t + "-sm.jpg";
+                klon.querySelector("#kort").textContent = madvarer.gsx$kort.$t;
+                klon.querySelector("#pris").textContent = madvarer.gsx$pris.$t;
+
                 container.appendChild(klon);
 
             })
 
         }
-
     </script>
-</body>
-
-</html>
+</body></html>
