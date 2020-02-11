@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        img {
+            width: 100%;
+        }
+
+        #detalje {
+            position: fixed;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+
+        #person {
+            border: 1px solid black;
+            background-color: #ececec;
+        }
+
+        .hide {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <section id="detalje" class="hide">
+        <article id="person">
+            <button id="luk">X</button>
+            <h1>NAVN</h1>
+            <img src="" alt="">
+            <p></p>
+            <p></p>
+        </article>
+    </section>
+
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search)
+        const id = urlParams.get("id");
+
+
+        const container = document.querySelector(".data-container");
+        const endpoint = "https://spreadsheets.google.com/feeds/list/1XWWbfWszD7f4jHqp51V_oT3pkHuR-ceEUw4YtrvK7F0/od6/public/values?alt=json";
+        let allePersoner = [];
+
+        const detalje = document.querySelector("#detalje");
+        document.addEventListener("DOMContentLoaded", start);
+
+        function start() {
+            loadPersonData();
+        }
+
+
+        async function loadPersonData() {
+            const response = await fetch(endpoint);
+            personer = await response.json();
+            console.log(allePersoner);
+            visPersoner();
+        }
+
+
+
+        function visPersoner() {
+            personer.feed.entry.forEach(person => {
+                if (person.gsx$id.$t == id) {
+
+                    detalje.querySelector("h1").textContent = person.gsx$navn.$t;
+                    detalje.querySelector("h1").textContent += " " + person.gsx$efternavn.$t;
+                    detalje.querySelector("p").textContent = person.gsx$religion.$t;
+                    detalje.querySelector("p + p").textContent = person.gsx$hobby.$t;
+                    detalje.querySelector("img").src = person.gsx$billede.$t;
+                    detalje.querySelector("img").alt = "portræt" + person.gsx$navn.$t;
+
+
+                }
+            })
+        }
+    </script>
+</body></html>

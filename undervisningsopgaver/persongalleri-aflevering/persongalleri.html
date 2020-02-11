@@ -13,6 +13,7 @@
         article {
             padding: 10px;
             box-shadow: 1px 2px 5px;
+            cursor: pointer;
         }
 
         article:nth-child(3n+1) {
@@ -63,14 +64,37 @@
 
         }
 
+        #detalje {
+            top: 0;
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 5;
+        }
+
+        #detalje button {
+            font-size: 1em;
+        }
+
+        .hide {
+            display: none;
+        }
     </style>
 </head>
 
 <body>
+    <h1>Alle</h1>
+    <nav class="menu">
+        <button class="filter" data-køn="alle">Alle</button>
+        <button class="filter" data-køn="k">Kvinder</button>
+        <button class="filter" data-køn="m">Mænd</button>
+        <button class="filter" data-køn="andet">Andet</button>
+    </nav>
 
     <section class="data-container"></section>
     <template>
-        <article class="personer">
+        <article class="person">
             <h2></h2>
             <img src="" alt="">
             <p class="religion">Religion:</p>
@@ -78,8 +102,18 @@
             <p class="kaledyr">Kæledyr: </p>
         </article>
     </template>
-    <main> </main>
 
+
+    <section id="detalje" class="hide">
+        <button>X</button>
+        <article id="person">
+            <h1>Navn</h1>
+            <img src="" alt="">
+            <p>Religion</p>
+            <p>Hobby</p>
+        </article>
+    </section>
+    <main></main>
 
 
 
@@ -93,6 +127,10 @@
             loadData();
         }
 
+        function filtrerPersoner() {
+            filter = this.dataset.køn;
+            document.querySelector(".valgt").classList.remove("valgt");
+        }
 
 
         async function loadData() {
@@ -115,13 +153,21 @@
                 klon.querySelector(".religion").textContent = person.gsx$religion.$t;
                 klon.querySelector(".hobby").textContent = person.gsx$hobby.$t;
                 klon.querySelector(".kaledyr").textContent = person.gsx$kaeledyr.$t;
+                klon.querySelector(".personer").addEventListener("click", () => {
+                    visDetalje();
+                });
+
+
                 container.appendChild(klon);
 
             })
 
         }
 
+        function visDetalje(person) {
+            detalje.classlist.remove("hide");
+            detalje.querySelector("button").addEventListener("click", () => detalje.classList.add("hide"));
+            console.log(person.gsx$navn.$t);
+        }
     </script>
-</body>
-
-</html>
+</body></html>

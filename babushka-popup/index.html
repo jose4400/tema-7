@@ -100,26 +100,59 @@
             padding: 6px 24px;
             text-decoration: none;
         }
+
+        .valgt {
+            border: 1px solid black;
+            padding: 4px;
+        }
+
+        #detalje {
+            position: fixed;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.5);
+            overflow: scroll;
+        }
+
+        #madvarer_pop {
+            border: 1px solid black;
+            background-color: #ececec;
+            margin: 0px 300px 0px 300px;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .retter_kategori {
+            text-align: center;
+        }
     </style>
 </head>
 
 <body>
-
-    <h1>BISTRO BABUSHKA</h1>
-    <h2><u>MENU</u></h2>
     <nav class="menu">
         <button class="filter valgt" data-kategori="alle">
             Alle
         </button>
-        <button class="filter" data-kategori="for">
+        <button class="filter" data-kategori="forretter">
             Forretter
         </button>
-        <button class="filter" data-kategori="hoved">
+        <button class="filter" data-kategori="hovedretter">
             Hovedretter
         </button>
-        <button class="filter" data-kategori="des">Desserter</button>
-        <button class="filter" data-kategori="drik">Drikkevarer</button>
+        <button class="filter" data-kategori="desserter">Desserter</button>
+        <button class="filter" data-kategori="drikkevarer">Drikkevarer</button>
     </nav>
+    <h1>BISTRO BABUSHKA</h1>
+    <h2><u>MENU</u></h2>
+
+
+    <h3 class="retter_kategori">Alle</h3>
+
+
+
     <section class="data-container"></section>
     <template>
 
@@ -131,14 +164,30 @@
             <p id="pris"></p>
         </article>
     </template>
+
+    <section id="detalje" class="hide">
+        <article id="madvarer_pop">
+            <button id="detalje_button">X</button>
+            <h2></h2>
+            <img src="" alt="">
+            <p id="lang"></p>
+            <p id="pris"></p>
+        </article>
+    </section>
     <main> </main>
 
 
 
 
     <script>
+        const container = document.querySelector("main");
+        const dyrTemplate = document.querySelector("template");
         const endpoint = "https://spreadsheets.google.com/feeds/list/17Dd7DvkPaFamNUdUKlrFgnH6POvBJXac7qyiS6zNRw0/od6/public/values?alt=json";
         let madvarer = [];
+        let filter = "alle";
+
+        const detalje = document.querySelector("#detalje");
+
 
         document.addEventListener("DOMContentLoaded", start);
 
@@ -146,12 +195,9 @@
 
         function start() {
             hentData();
-            addEventListenerToButtons();
+            addEventListenersToButtons();
         }
 
-        function filtrerPersoner() {
-
-        }
 
         async function hentData() {
             const response = await fetch(endpoint);
@@ -164,21 +210,65 @@
 
 
         function visMadvarer() {
-
-
-            const container = document.querySelector("main");
-            const dyrTemplate = document.querySelector("template");
+            container.innerHTML = "";
 
             madvarer.feed.entry.forEach(madvarer => {
-                let klon = dyrTemplate.cloneNode(true).content;
-                klon.querySelector("h3").textContent = madvarer.gsx$navn.$t;
-                klon.querySelector("img").src = "imgs/small/" + madvarer.gsx$billede.$t + "-sm.jpg";
-                klon.querySelector("#kort").textContent = madvarer.gsx$kort.$t;
-                klon.querySelector("#pris").textContent = madvarer.gsx$pris.$t;
+                if (filter == "alle" || filter == madvarer.gsx$kategori.$t) {
+                    let klon = dyrTemplate.cloneNode(true).content;
+                    klon.querySelector("h3").textContent = madvarer.gsx$navn.$t;
+                    klon.querySelector("img").src = "imgs/small/" + madvarer.gsx$billede.$t + "-sm.jpg";
+                    klon.querySelector("#kort").textContent = madvarer.gsx$kort.$t;
+                    klon.querySelector("#pris").textContent = madvarer.gsx$pris.$t;
+                    klon.querySelector(".madvarer").addEventListener("click", () =>
+                        visDetalje(madvarer));
 
-                container.appendChild(klon);
+
+                    container.appendChild(klon);
+                }
 
             })
+
+        }
+
+        function addEventListenersToButtons() {
+            console.log("button clicked");
+            document.querySelectorAll(".filter").forEach(elm => {
+                elm.addEventListener("click", filtrering);
+
+            })
+
+        }
+
+        function filtrering() {
+            console.log("FILTER");
+            filter = this.dataset.kategori;
+
+            document.querySelectorAll(".filter").forEach(elm => {
+                elm.classList.remove("valgt");
+
+            })
+
+            this.classList.add("valgt");
+            visMadvarer();
+            document.querySelector(".retter_kategori").textContent = this.textContent;
+
+
+
+        }
+
+        function visDetalje(madvarer) {
+            detalje.classList.remove("hide");
+
+            detalje.querySelector("#detalje_button").addEventListener("click", () => {
+                detalje.classList.add("hide");
+            });
+
+            detalje.querySelector("h2").textContent = madvarer.gsx$navn.$t;
+            detalje.querySelector("img").src = "imgs/large/" + madvarer.gsx$billede.$t + ".jpg";
+            detalje.querySelector("#lang").textContent = madvarer.gsx$lang.$t;
+            detalje.querySelector("#pris").textContent = madvarer.gsx$pris.$t;
+
+
 
         }
     </script>
