@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        img {
+            width: 100%;
+            height 60%;
+            object-fit: contain;
+        }
+
+        #detalje {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, .8);
+            overflow: scroll;
+        }
+
+        #detalje_button {
+            position: fixed;
+            top: 0;
+            left: 0;
+            font-size: 4rem;
+            cursor: pointer;
+            margin: 1em;
+        }
+
+        #madvarer_pop {
+            width: 60vw;
+            min-height: 50vh;
+            margin: auto;
+            padding: 4rem;
+            background: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <section id="detalje" class="hide">
+        <article id="madvarer_pop">
+            <button id="detalje_button">X</button>
+            <h2></h2>
+            <img src="" alt="">
+            <p id="lang"></p>
+            <p id="pris"></p>
+        </article>
+    </section>
+
+
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get("id");
+        console.log(id);
+
+        let madvarer = [];
+        const endpoint = "https://spreadsheets.google.com/feeds/list/17Dd7DvkPaFamNUdUKlrFgnH6POvBJXac7qyiS6zNRw0/od6/public/values?alt=json";
+
+        const detalje = document.querySelector("#detalje");
+
+        document.addEventListener("DOMContentLoaded", start);
+
+        function start() {
+            hentData();
+            addEventListenersToButtons();
+        }
+
+
+        async function hentData() {
+            const response = await fetch(endpoint);
+            madvarer = await response.json();
+            console.log(response);
+
+            visMadvarer();
+            //            console.log(personer);
+        }
+
+        function visMadvarer() {
+            detalje.querySelector("button").addEventListener("click", () => {
+                history.back();
+            });
+            madvarer.feed.entry.forEach(madvarer => {
+                if (madvarer.gsx$id.$t == id) { // tjek hvilket køn personen har og sammenlign med filter eller vis alle
+                    detalje.querySelector("h2").textContent = madvarer.gsx$navn.$t;
+                    detalje.querySelector("img").src = "imgs/large/" + madvarer.gsx$billede.$t + ".jpg";
+                    detalje.querySelector("#lang").textContent = madvarer.gsx$lang.$t;
+                    detalje.querySelector("#pris").textContent = madvarer.gsx$pris.$t;
+                }
+            });
+        }
+    </script>
+</body></html>
