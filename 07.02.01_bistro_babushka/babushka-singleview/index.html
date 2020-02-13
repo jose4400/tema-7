@@ -128,6 +128,7 @@
         .retter_kategori {
             text-align: center;
         }
+
     </style>
 </head>
 
@@ -220,7 +221,7 @@
                     klon.querySelector("h3").textContent = madvarer.gsx$navn.$t;
                     klon.querySelector("img").src = "imgs/small/" + madvarer.gsx$billede.$t + "-sm.jpg";
                     klon.querySelector("#kort").textContent = madvarer.gsx$kort.$t;
-                    klon.querySelector("#pris").textContent = madvarer.gsx$pris.$t;
+                    klon.querySelector("#pris").textContent = madvarer.gsx$pris.$t + ",-";
                     klon.querySelector(".madvarer").addEventListener("click", () => {
                         location.href = "detalje.html?id=" + madvarer.gsx$id.$t;
                     });
@@ -269,10 +270,13 @@
             detalje.querySelector("h2").textContent = madvarer.gsx$navn.$t;
             detalje.querySelector("img").src = "imgs/large/" + madvarer.gsx$billede.$t + ".jpg";
             detalje.querySelector("#lang").textContent = madvarer.gsx$lang.$t;
-            detalje.querySelector("#pris").textContent = madvarer.gsx$pris.$t;
+            detalje.querySelector("#pris").textContent = madvarer.gsx$pris.$t + ",-";
 
 
 
         }
+
     </script>
-</body></html>
+</body>
+
+</html>

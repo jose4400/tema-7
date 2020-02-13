@@ -218,7 +218,7 @@
                     klon.querySelector("h3").textContent = madvarer.gsx$navn.$t;
                     klon.querySelector("img").src = "imgs/small/" + madvarer.gsx$billede.$t + "-sm.jpg";
                     klon.querySelector("#kort").textContent = madvarer.gsx$kort.$t;
-                    klon.querySelector("#pris").textContent = madvarer.gsx$pris.$t;
+                    klon.querySelector("#pris").textContent = madvarer.gsx$pris.$t + ",-";
                     klon.querySelector(".madvarer").addEventListener("click", () =>
                         visDetalje(madvarer));
 
@@ -266,7 +266,7 @@
             detalje.querySelector("h2").textContent = madvarer.gsx$navn.$t;
             detalje.querySelector("img").src = "imgs/large/" + madvarer.gsx$billede.$t + ".jpg";
             detalje.querySelector("#lang").textContent = madvarer.gsx$lang.$t;
-            detalje.querySelector("#pris").textContent = madvarer.gsx$pris.$t;
+            detalje.querySelector("#pris").textContent = madvarer.gsx$pris.$t + ",-";
 
 
 

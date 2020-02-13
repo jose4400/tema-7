@@ -5,6 +5,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
+
+    <link href="https://fonts.googleapis.com/css?family=Bungee+Inline|Bungee+Shade|Montserrat&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
     <style>
         img {
             width: 100%;
@@ -14,30 +18,34 @@
 
         #detalje {
             position: fixed;
+            top: 0;
             width: 100vw;
             height: 100vh;
-            top: 0;
-            left: 0;
-            background-color: rgba(0, 0, 0, .8);
+            background-color: rgba(0, 0, 0, 0.5);
             overflow: scroll;
         }
 
         #detalje_button {
-            position: fixed;
-            top: 0;
-            left: 0;
-            font-size: 4rem;
+            box-shadow: inset 0px 1px 0px 0px #f7c5c0;
+            background: linear-gradient(to bottom, #ed5449 5%, #e4685d 100%);
+            background-color: #ed5449;
+            border-radius: 3px;
+            border: 1px solid #d64537;
+            display: inline-block;
             cursor: pointer;
-            margin: 1em;
+            color: #ffffff;
+            font-family: 'Roboto', sans-serif;
+            font-size: 10px;
+            font-weight: bold;
+            padding: 6px 24px;
+            text-decoration: none;
         }
 
         #madvarer_pop {
-            width: 60vw;
-            min-height: 50vh;
-            margin: auto;
-            padding: 4rem;
-            background: white;
+            border: 1px solid black;
+            background-color: #ececec;
         }
+
     </style>
 </head>
 
@@ -45,7 +53,7 @@
 
     <section id="detalje" class="hide">
         <article id="madvarer_pop">
-            <button id="detalje_button">X</button>
+            <button id="detalje_button">⬅︎</button>
             <h2></h2>
             <img src="" alt="">
             <p id="lang"></p>
@@ -91,9 +99,12 @@
                     detalje.querySelector("h2").textContent = madvarer.gsx$navn.$t;
                     detalje.querySelector("img").src = "imgs/large/" + madvarer.gsx$billede.$t + ".jpg";
                     detalje.querySelector("#lang").textContent = madvarer.gsx$lang.$t;
-                    detalje.querySelector("#pris").textContent = madvarer.gsx$pris.$t;
+                    detalje.querySelector("#pris").textContent = madvarer.gsx$pris.$t + ",-";
                 }
             });
         }
+
     </script>
-</body></html>
+</body>
+
+</html>
